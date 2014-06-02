@@ -17,8 +17,10 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vi'
+if (( $+commands[gvim] )); then
+  export VISUAL='gvim'
+fi
 export PAGER='less'
 
 #
