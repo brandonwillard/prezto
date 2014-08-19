@@ -18,9 +18,9 @@ fi
 #
 
 export EDITOR='vi'
-if (( $+commands[gvim] )); then
-  export VISUAL='gvim'
-fi
+#if (( $+commands[gvim] )); then
+#  export VISUAL='gvim'
+#fi
 export PAGER='less'
 
 #
