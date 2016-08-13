@@ -9,3 +9,18 @@
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+# pyenv settings
+export PATH="/home/bwillar0/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
+# virtualenvwrapper settings
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/projects/python
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+source /usr/local/bin/virtualenvwrapper.sh
+
+
