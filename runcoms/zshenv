@@ -10,17 +10,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-# pyenv settings
-export PATH="/home/bwillar0/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-
-# virtualenvwrapper settings
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/projects/python
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-source /usr/local/bin/virtualenvwrapper.sh
-
-
+# See: https://vi.stackexchange.com/questions/7644/use-vim-with-virtualenv/7654#7654
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
