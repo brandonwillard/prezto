@@ -40,8 +40,10 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'tmux' \
   'syntax-highlighting' \
-  'python' \
   'prompt'
+# The python module re-initializes pyenv, which clobbers the path variable and
+# screws up virtualenv settings in sub-shells (e.g. within Neovim).
+#  'python' \
 
 #
 # Autosuggestions

@@ -68,13 +68,6 @@ path=(
   /usr/local/sbin
 )
 
-# pyenv settings
-# eval "$(pyenv init -)"
-# if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-# pyenv virtualenvwrapper
-# source /usr/local/bin/virtualenvwrapper.sh
-# source ~/.pyenv/shims/virtualenvwrapper.sh
-
 if ! type pyenv | grep -q function; then # only once!
   if [ -n "$commands[pyenv]" ] ; then
     eval "$(pyenv init -)"

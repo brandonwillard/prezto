@@ -29,3 +29,13 @@ if [ -n "$commands[aws_zsh_completer.sh]" ] ; then
   source aws_zsh_completer.sh
 fi
 
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS="--multi"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -n "$commands[nvim-terminal-edit.py]" ] ; then
+  compdef nvim-terminal-edit.py=nvim
+  # alias nvim='nvim-terminal-edit.py'
+  alias vim='nvim-terminal-edit.py'
+fi
