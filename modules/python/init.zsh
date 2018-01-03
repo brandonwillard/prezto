@@ -28,12 +28,13 @@ else
     # This is subject to change.
     path=($HOME/.local/bin $path)
   fi
+
+  # Return if requirements are not found.
+  if (( ! $+commands[python] && ! $+commands[pyenv] )); then
+    return 1
+  fi
 fi
 
-# Return if requirements are not found.
-if (( ! $+commands[python] && ! $+commands[pyenv] )); then
-  return 1
-fi
 
 function _python-workon-cwd {
   # Check if this is a Git repo
@@ -67,7 +68,7 @@ function _python-workon-cwd {
   fi
   if [[ "$ENV_NAME" != "" ]]; then
     # Activate the environment only if it is not already active
-    if [[ "$VIRTUAL_ENV" != "$WORKON_HOME/$ENV_NAME" ]]; then
+    if [[ "${VIRTUAL_ENV:-$CONDA_DEFAULT_ENV}" != "$WORKON_HOME/$ENV_NAME" ]]; then
       if [[ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ]]; then
         workon "$ENV_NAME" && export CD_VIRTUAL_ENV="$ENV_NAME"
       elif [[ -e "$ENV_NAME/bin/activate" ]]; then

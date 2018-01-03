@@ -45,16 +45,13 @@ typeset -gU cdpath fpath mailpath path
 
 # XXX: Might not need these when using the python module
 # in .zpreztorc.
-export PYENV_ROOT=$HOME/.pyenv
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # virtualenvwrapper settings
 # export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export VIRTUALENVWRAPPER_PYTHON=~/.pyenv/shims/python
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/projects/python
-#export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+# export VIRTUALENVWRAPPER_PYTHON=~/.pyenv/shims/python
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/projects/python
+# export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 
 # Set the list of directories that Zsh searches for programs.
 path=(
@@ -64,9 +61,16 @@ path=(
   $HOME/.cabal/bin
   $HOME/apps/Zotero_linux-x86_64
   $path
-  /usr/local/bin
-  /usr/local/sbin
 )
+path=($HOME/apps/anaconda3/bin $path)
+path=($path $(npm bin 2> /dev/null))
+
+# Remove non-valid paths
+for x in "${path[@]}"; do
+  if [ ! -d "$x" ]; then
+    path=("${(@)path:#$x}")
+  fi
+done
 
 if ! type pyenv | grep -q function; then # only once!
   if [ -n "$commands[pyenv]" ] ; then
@@ -89,4 +93,17 @@ export LESS='-F -g -i -M -R -S -X -z-4'
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+#
+# Temporary Files
+#
+#
+# Set TMPDIR if the variable is not set/empty or the directory doesn't exist
+if [[ -z "${TMPDIR}" ]]; then
+  export TMPDIR="/tmp/zsh-${UID}"
+fi
+
+if [[ ! -d "${TMPDIR}" ]]; then
+  mkdir -m 700 "${TMPDIR}"
 fi

@@ -39,3 +39,22 @@ if [ -n "$commands[nvim-terminal-edit.py]" ] ; then
   # alias nvim='nvim-terminal-edit.py'
   alias vim='nvim-terminal-edit.py'
 fi
+
+if [ -n "$commands[hub]" ] ; then
+  eval $(hub alias -s)
+fi
+
+export ANACONDA_HOME=~/apps/anaconda3
+
+# From https://github.com/asmeurer/dotfiles/blob/8bcba698cde26cf81e765d456dddc20cf0d1865f/.profile#L370-L384
+# alias act="source activate"
+# alias deact="source deactivate"
+# # # complete source activate. Thanks to Paul Kienzle from NIST for the
+# # # suggestion.
+# _activate_complete ()
+# {
+#     local cur="${COMP_WORDS[COMP_CWORD]}";
+#     COMPREPLY=($(compgen -W "$(LS $HOME/apps/anaconda3/envs | tr [:upper:] [:lower:] | lam -s \" - -s \")" -- "$cur" ));
+# }
+
+# complete -F _activate_complete "act"
