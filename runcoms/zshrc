@@ -46,15 +46,26 @@ fi
 
 export ANACONDA_HOME=~/apps/anaconda3
 
-# From https://github.com/asmeurer/dotfiles/blob/8bcba698cde26cf81e765d456dddc20cf0d1865f/.profile#L370-L384
-# alias act="source activate"
-# alias deact="source deactivate"
-# # # complete source activate. Thanks to Paul Kienzle from NIST for the
-# # # suggestion.
-# _activate_complete ()
-# {
-#     local cur="${COMP_WORDS[COMP_CWORD]}";
-#     COMPREPLY=($(compgen -W "$(LS $HOME/apps/anaconda3/envs | tr [:upper:] [:lower:] | lam -s \" - -s \")" -- "$cur" ));
-# }
+path=(
+  /usr/local/bin
+  /usr/local/sbin
+  $HOME/.local/bin
+  $HOME/.cabal/bin
+  $HOME/apps/Zotero_linux-x86_64
+  $path
+)
 
-# complete -F _activate_complete "act"
+#path=($HOME/apps/anaconda3/bin $path)
+path=($path $(npm bin 2> /dev/null))
+
+# Remove non-valid paths
+for x in "${path[@]}"; do
+  if [ ! -d "$x" ]; then
+    path=("${(@)path:#$x}")
+  fi
+done
+
+# New (>4.4) conda activation
+. $ANACONDA_HOME/etc/profile.d/conda.sh
+conda activate base
+

@@ -62,7 +62,7 @@ path=(
   $HOME/apps/Zotero_linux-x86_64
   $path
 )
-path=($HOME/apps/anaconda3/bin $path)
+#path=($HOME/apps/anaconda3/bin $path)
 path=($path $(npm bin 2> /dev/null))
 
 # Remove non-valid paths
@@ -72,13 +72,13 @@ for x in "${path[@]}"; do
   fi
 done
 
-if ! type pyenv | grep -q function; then # only once!
-  if [ -n "$commands[pyenv]" ] ; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-    pyenv virtualenvwrapper_lazy
-  fi
-fi
+# if ! type pyenv | grep -q function; then # only once!
+#   if [ -n "$commands[pyenv]" ] ; then
+#     eval "$(pyenv init -)"
+#     eval "$(pyenv virtualenv-init -)"
+#     pyenv virtualenvwrapper_lazy
+#   fi
+# fi
 
 #
 # Less
