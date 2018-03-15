@@ -69,3 +69,33 @@ done
 . $ANACONDA_HOME/etc/profile.d/conda.sh
 conda activate base
 
+
+#
+# Auto conda env activate when environment.yml is found
+# Inspired by https://github.com/chdoig/conda-auto-env/blob/master/conda_auto_env.sh 
+# 
+function conda_auto_env() {
+  if [ -e "environment.yml" ]; then
+
+    ENV_NAME=$(head -n 1 environment.yml | cut -f2 -d ' ')
+
+    if [[ $CONDA_DEFAULT_ENV != $ENV_NAME ]]; then
+
+      echo "activating conda env $ENV_NAME..."
+
+      conda activate $ENV_NAME
+
+      # if [ $? -eq 0 ]; then
+      #   :
+      # else
+      #   # Create the environment and activate
+      #   echo "Conda env '$ENV' doesn't exist."
+      #   conda env create -q -f environment.yml
+      #   conda activate $ENV
+      # fi
+    fi
+  fi
+}
+
+# export PROMPT_COMMAND=conda_auto_env
+precmd_functions=(conda_auto_env)
